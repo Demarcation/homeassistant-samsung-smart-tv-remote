@@ -4,22 +4,50 @@ cards:
     color_type: blank-card
   - type: horizontal-stack
     cards:
-      - type: custom:button-card
-        entity_id: media_player.lounge_tv_2
-        tap_action:
-          action: call-service
-          haptic: medium
-          service: media_player.toggle
-          service_data:
-            entity_id: media_player.lounge_tv_2
-        show_name: false
-        icon: mdi:power
-        size: 25%
-        state:
-          - value: 'on'
-            color: green
-          - value: 'off'
-            color: red
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: media_player.lounge_tv_2
+            state_not: 'off'
+        card:
+          type: custom:button-card
+          entity_id: media_player.lounge_tv_2
+          tap_action:
+            action: call-service
+            haptic: medium
+            service: media_player.turn_off
+            service_data:
+              entity_id: media_player.lounge_tv_2
+          show_name: false
+          icon: mdi:power
+          size: 25%
+          state:
+            - value: 'on'
+              color: green
+            - value: 'off'
+              color: red
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: media_player.lounge_tv_2
+            state: 'off'
+        card:
+          type: custom:button-card
+          entity_id: media_player.lounge_tv_2
+          tap_action:
+            action: call-service
+            haptic: medium
+            service: media_player.turn_on
+            service_data:
+              entity_id: media_player.lounge_tv_2
+          show_name: false
+          icon: mdi:power
+          size: 25%
+          state:
+            - value: 'on'
+              color: green
+            - value: 'off'
+              color: red
       - type: custom:button-card
         tap_action:
           action: call-service
@@ -62,15 +90,8 @@ cards:
               var src = states['media_player.lounge_tv_2'].attributes.source;
               if(src == 'YouTube') { return '#CD201F'; }
               if(src == 'Netflix') { return '#000000'; }
-              if(src == 'BINGE') { return '#70139F'; }
               if(src == 'Prime Video') { return '#223040'; }
-              if(src == 'Kayo Sports') { return '#06E277'; }
               if(src == 'Plex') { return '#202020'; }
-              if(src == 'ABC iview') { return '#40B8B6'; }
-              if(src == 'SBS On Demand') { return '#FDB717'; }
-              if(src == '7plus') { return '#EB1B23'; }
-              if(src == '9Now') { return '#FFFFFF'; }
-              if(src == '10 play') { return '#0049F4'; }
               return 'var(--table-row-background-color)';
             ]]]
         - color: |
@@ -78,19 +99,54 @@ cards:
               var src = states['media_player.lounge_tv_2'].attributes.source;
               if(src == 'YouTube') { return '#FFFFFF'; }
               if(src == 'Netflix') { return '#E50915'; }
-              if(src == 'BINGE') { return '#FFFFFF'; }
               if(src == 'Prime Video') { return '#02A5DE'; }
-              if(src == 'Kayo Sports') { return '#002314'; }
               if(src == 'Plex') { return '#FFFFFF'; }
-              if(src == 'ABC iview') { return '#FFFFFF'; }
-              if(src == 'SBS On Demand') { return '#2E2D2C'; }
-              if(src == '7plus') { return '#FFFFFF'; }
-              if(src == '9Now') { return '#0153A2'; }
-              if(src == '10 play') { return '#FFFFFF'; }
               return 'var(--primary-text-color)';
             ]]]
   - type: horizontal-stack
     cards:
+      - type: custom:button-card
+        color: rgb(108, 108, 108)
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.select_source
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            source: Plex
+        entity_picture: /local/icons/channels/plex.png
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 60px
+            - padding-bottom: 0%
+      - type: custom:button-card
+        color: rgb(108, 108, 108)
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.select_source
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            source: PlayStation 4
+        entity_picture: /local/icons/channels/ps4.jpeg
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 60px
+            - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
         entity: media_player.lounge_tv_2
@@ -109,7 +165,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 60px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -129,27 +186,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
-            - padding-bottom: 0%
-      - type: custom:button-card
-        color: rgb(108, 108, 108)
-        entity: media_player.lounge_tv_2
-        tap_action:
-          action: call-service
-          haptic: medium
-          service: media_player.select_source
-          service_data:
-            entity_id: media_player.lounge_tv_2
-            source: BINGE
-        entity_picture: /local/icons/channels/binge.png
-        show_name: false
-        show_icon: false
-        show_entity_picture: true
-        style:
-          - padding: 0px
-        styles:
-          entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 60px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -169,7 +207,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 60px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -180,8 +219,8 @@ cards:
           service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            source: Kayo Sports
-        entity_picture: /local/icons/channels/kayo.png
+            source: TV
+        entity_picture: /local/icons/channels/tv.jpeg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -189,27 +228,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
-            - padding-bottom: 0%
-      - type: custom:button-card
-        color: rgb(108, 108, 108)
-        entity: media_player.lounge_tv_2
-        tap_action:
-          action: call-service
-          haptic: medium
-          service: media_player.select_source
-          service_data:
-            entity_id: media_player.lounge_tv_2
-            source: Plex
-        entity_picture: /local/icons/channels/plex.png
-        show_name: false
-        show_icon: false
-        show_entity_picture: true
-        style:
-          - padding: 0px
-        styles:
-          entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 60px
             - padding-bottom: 0%
   - type: horizontal-stack
     cards:
@@ -222,8 +242,8 @@ cards:
           service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            source: ABC iview
-        entity_picture: /local/icons/channels/abc_iview.png
+            source: PC
+        entity_picture: /local/icons/channels/pc2.jpeg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -231,7 +251,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -242,8 +263,8 @@ cards:
           service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            source: SBS On Demand
-        entity_picture: /local/icons/channels/sbs.png
+            source: BBC iPlayer
+        entity_picture: /local/icons/channels/iplayer.png
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -251,7 +272,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -262,8 +284,8 @@ cards:
           service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            source: 7plus
-        entity_picture: /local/icons/channels/7plus.png
+            source: ITVX - fresh, free streaming.
+        entity_picture: /local/icons/channels/itvx.jpeg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -271,7 +293,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -282,8 +305,8 @@ cards:
           service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            source: 9Now
-        entity_picture: /local/icons/channels/9now.png
+            source: Channel 4
+        entity_picture: /local/icons/channels/c4od.jpg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -291,7 +314,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -302,8 +326,8 @@ cards:
           service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            source: 10 play
-        entity_picture: /local/icons/channels/10_play.png
+            source: My5
+        entity_picture: /local/icons/channels/my5.png
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -311,7 +335,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         entity: media_player.lounge_tv_2
@@ -326,20 +351,24 @@ cards:
             media_content_id: KEY_CHUP
         show_name: false
         icon: mdi:arrow-up-circle-outline
-        size: 82%
+        styles:
+          icon:
+            - width: 75px
+            - height: 60px
+            - padding-bottom: 0%
   - type: horizontal-stack
     cards:
       - type: custom:button-card
+        color: rgb(108, 108, 108)
         entity: media_player.lounge_tv_2
         tap_action:
           action: call-service
           haptic: medium
-          service: media_player.play_media
+          service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            media_content_type: send_key
-            media_content_id: KEY_EXIT+3000+KEY_TV+KEY_2+KEY_0
-        entity_picture: /local/icons/channels/tv_abc.png
+            source: discovery+ | Stream TV Shows
+        entity_picture: /local/icons/channels/discovery+.jpeg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -347,7 +376,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -355,12 +385,11 @@ cards:
         tap_action:
           action: call-service
           haptic: medium
-          service: media_player.play_media
+          service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            media_content_type: send_key
-            media_content_id: KEY_EXIT+2000+KEY_TV+KEY_7+KEY_0
-        entity_picture: /local/icons/channels/tv_seven.png
+            source: Disney+
+        entity_picture: /local/icons/channels/disney+.jpeg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -368,7 +397,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -376,12 +406,11 @@ cards:
         tap_action:
           action: call-service
           haptic: medium
-          service: media_player.play_media
+          service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            media_content_type: send_key
-            media_content_id: KEY_EXIT+2000+KEY_TV+KEY_9+KEY_0
-        entity_picture: /local/icons/channels/tv_nine.png
+            source: NOW
+        entity_picture: /local/icons/channels/nowtv.png
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -389,7 +418,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -397,12 +427,11 @@ cards:
         tap_action:
           action: call-service
           haptic: medium
-          service: media_player.play_media
+          service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            media_content_type: send_key
-            media_content_id: KEY_EXIT+2000+KEY_TV+KEY_1+KEY_0
-        entity_picture: /local/icons/channels/tv_ten.png
+            source: NintendoSwitch
+        entity_picture: /local/icons/channels/nswitch.png
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -410,7 +439,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 60px
             - padding-bottom: 0%
       - type: custom:button-card
         color: rgb(108, 108, 108)
@@ -418,12 +448,11 @@ cards:
         tap_action:
           action: call-service
           haptic: medium
-          service: media_player.play_media
+          service: media_player.select_source
           service_data:
             entity_id: media_player.lounge_tv_2
-            media_content_type: send_key
-            media_content_id: KEY_EXIT+2000+KEY_TV+KEY_3+KEY_0
-        entity_picture: /local/icons/channels/tv_sbs.png
+            source: Spotify - Music and Podcasts
+        entity_picture: /local/icons/channels/spotify.jpeg
         show_name: false
         show_icon: false
         show_entity_picture: true
@@ -431,7 +460,8 @@ cards:
           - padding: 0px
         styles:
           entity_picture:
-            - width: 100%
+            - width: 75px
+            - height: 65px
             - padding-bottom: 0%
       - type: custom:button-card
         entity: media_player.lounge_tv_2
@@ -446,7 +476,139 @@ cards:
             media_content_id: KEY_CHDOWN
         show_name: false
         icon: mdi:arrow-down-circle-outline
-        size: 80%
+        styles:
+          icon:
+            - width: 75px
+            - height: 60px
+            - padding-bottom: 0%
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.play_media
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            media_content_type: send_key
+            media_content_id: KEY_EXIT+1000+KEY_TV+2000+KEY_1+KEY_0+KEY_1
+        entity_picture: /local/icons/channels/bbc1.png
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 65px
+            - padding-bottom: 0%
+      - type: custom:button-card
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.play_media
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            media_content_type: send_key
+            media_content_id: KEY_EXIT+1000+KEY_TV+2000+KEY_1+KEY_0+KEY_4
+        entity_picture: /local/icons/channels/c4.jpg
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 65px
+            - padding-bottom: 0%
+      - type: custom:button-card
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.play_media
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            media_content_type: send_key
+            media_content_id: KEY_EXIT+1000+KEY_TV+2000+KEY_1+KEY_2+KEY_2
+        entity_picture: /local/icons/channels/e4.png
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 65px
+            - padding-bottom: 0%
+      - type: custom:button-card
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.play_media
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            media_content_type: send_key
+            media_content_id: KEY_EXIT+1000+KEY_TV+2000+KEY_1+KEY_0+KEY_5
+        entity_picture: /local/icons/channels/c5.jpeg
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 65px
+            - padding-bottom: 0%
+      - type: custom:button-card
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.play_media
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            media_content_type: send_key
+            media_content_id: KEY_EXIT+1000+KEY_TV+2000+KEY_1+KEY_5+KEY_7
+        entity_picture: /local/icons/channels/dave.jpeg
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 65px
+            - padding-bottom: 0%
+      - type: custom:button-card
+        entity: media_player.lounge_tv_2
+        tap_action:
+          action: call-service
+          haptic: medium
+          service: media_player.play_media
+          service_data:
+            entity_id: media_player.lounge_tv_2
+            media_content_type: send_key
+            media_content_id: KEY_GUIDE
+        entity_picture: /local/icons/channels/tvguide.png
+        show_name: false
+        show_icon: false
+        show_entity_picture: true
+        style:
+          - padding: 0px
+        styles:
+          entity_picture:
+            - width: 75px
+            - height: 65px
+            - padding-bottom: 0%
   - type: custom:button-card
     color_type: blank-card
   - type: horizontal-stack
@@ -543,7 +705,9 @@ cards:
         tap_action:
           action: call-service
           haptic: medium
-          service: script.sonos_toggle
+          service: media_player.volume_mute
+          service_data:
+            entity_id: media_player.lounge_tv_2
         show_name: false
         icon: mdi:volume-off
         size: 25%
@@ -555,7 +719,7 @@ cards:
           haptic: medium
           service: media_player.volume_down
           service_data:
-            entity_id: media_player.lounge
+            entity_id: media_player.lounge_tv_2
         show_name: false
         icon: mdi:volume-minus
         size: 25%
@@ -567,7 +731,7 @@ cards:
           haptic: medium
           service: media_player.volume_up
           service_data:
-            entity_id: media_player.lounge
+            entity_id: media_player.lounge_tv_2
         show_name: false
         icon: mdi:volume-plus
         size: 25%
