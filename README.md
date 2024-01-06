@@ -7,6 +7,8 @@ Which in turn builds off the work at https://github.com/jaruba/ha-samsungtv-tize
 
 It creates a layout in YAML for a SamsungTV with entity_id: media_player.lounge_tv_2
 
+Icon files to be stored in /homeassistant/www/icons/channels/
+
 
 
                                                                
